@@ -126,11 +126,9 @@ Pastikan Python 3.x sudah terpasang.
 
 ## Catatan Teknis
 
-- Menggunakan Python untuk mengelola logika aplikasi.
 - File CSV digunakan sebagai media penyimpanan data tanpa database eksternal.
 - Perubahan saldo disimpan ke `users.csv`.
 - Transaksi yang berhasil dicatat ke `transactions.csv` beserta timestamp.
-- Tidak memerlukan instalasi package tambahan di luar pustaka bawaan Python.
 
 ---
 
