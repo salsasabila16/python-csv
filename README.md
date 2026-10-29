@@ -1,73 +1,73 @@
 # Account Management System — Python CLI
 
-Aplikasi pengelolaan akun dan transaksi berbasis command line yang dibangun menggunakan Python. Data pengguna, saldo, dan riwayat transaksi disimpan secara terstruktur menggunakan file CSV tanpa memerlukan database eksternal.
+A command-line account and transaction management system built with Python. User accounts, balances, and transaction history are stored in structured CSV files without requiring an external database.
 
 ---
 
-## Struktur Folder
+## Folder Structure
 
 ```text
 python/
 ├── README.md
 └── python_csv/
     ├── app/
-    │   ├── main.py           # Entry point dan menu utama
-    │   ├── auth.py           # Login dan pengelolaan data pengguna
-    │   ├── banking.py        # Model akun dan pengelolaan saldo
-    │   ├── transaction.py    # Pencatatan dan riwayat transaksi
-    │   └── validation.py     # Validasi input
+    │   ├── main.py           # Entry point and main menu
+    │   ├── auth.py           # Login and user data management
+    │   ├── banking.py        # Account model and balance management
+    │   ├── transaction.py    # Transaction recording and history
+    │   └── validation.py     # Input validation
     └── data/
-        ├── users.csv         # Data akun pengguna
-        └── transactions.csv  # Riwayat seluruh transaksi
+        ├── users.csv         # User account data
+        └── transactions.csv  # Complete transaction history
 ```
 
 ---
 
-## Modul Backend
+## Backend Modules
 
 ### `banking.py` — BankAccount
 
-Modul utama untuk mengelola data akun dan saldo pengguna. Setiap akun memiliki informasi berupa `user_id`, `account_number`, `account_holder`, `balance`, dan `pin`.
+The main module for managing user account information and balances. Each account contains `user_id`, `account_number`, `account_holder`, `balance`, and `pin`.
 
-| Method | Fungsi |
+| Method | Description |
 |---|---|
-| `deposit(amount)` | Menambahkan saldo akun |
-| `withdraw(amount)` | Mengurangi saldo akun |
-| `transfer(receiver, amount)` | Memindahkan saldo ke akun lain |
-| `show_balance()` | Menampilkan informasi akun dan saldo |
+| `deposit(amount)` | Adds funds to an account |
+| `withdraw(amount)` | Deducts funds from an account |
+| `transfer(receiver, amount)` | Transfers funds to another account |
+| `show_balance()` | Displays account information and balance |
 
-### `auth.py` — Autentikasi dan Persistensi
+### `auth.py` — Authentication and Persistence
 
-Mengelola proses login serta membaca dan menyimpan data pengguna menggunakan file CSV.
+Handles the login process and reads and saves user data using CSV files.
 
-| Fungsi | Keterangan |
+| Function | Description |
 |---|---|
-| `load_users()` | Membaca data akun dari `users.csv` |
-| `find_account(accounts, account_number)` | Mencari akun berdasarkan nomor rekening |
-| `login(accounts)` | Memproses login menggunakan nomor rekening dan PIN |
-| `save_users(accounts)` | Menyimpan data akun terbaru ke `users.csv` |
+| `load_users()` | Loads account data from `users.csv` |
+| `find_account(accounts, account_number)` | Finds an account by account number |
+| `login(accounts)` | Authenticates users using their account number and PIN |
+| `save_users(accounts)` | Saves updated account data to `users.csv` |
 
-### `transaction.py` — Pencatatan Transaksi
+### `transaction.py` — Transaction Recording
 
-Mengelola pencatatan dan penampilan riwayat transaksi pengguna.
+Handles transaction records and displays users' transaction history.
 
-| Fungsi | Keterangan |
+| Function | Description |
 |---|---|
-| `save_transaction(type, sender, receiver, amount)` | Menyimpan transaksi ke `transactions.csv` |
-| `show_transaction_history(account_number)` | Menampilkan riwayat transaksi berdasarkan nomor rekening |
+| `save_transaction(type, sender, receiver, amount)` | Saves a transaction to `transactions.csv` |
+| `show_transaction_history(account_number)` | Displays transaction history for a specific account number |
 
-### `validation.py` — Validasi Input
+### `validation.py` — Input Validation
 
-Memastikan input memenuhi aturan yang ditentukan sebelum operasi dijalankan.
+Ensures that user input meets the required rules before an operation is performed.
 
-| Fungsi | Keterangan |
+| Function | Description |
 |---|---|
-| `validate_amount(amount)` | Memastikan jumlah transaksi lebih dari nol |
-| `validate_transfer(sender, receiver)` | Mencegah transfer ke akun sendiri |
+| `validate_amount(amount)` | Ensures the transaction amount is greater than zero |
+| `validate_transfer(sender, receiver)` | Prevents transfers to the sender's own account |
 
 ---
 
-## Format Penyimpanan CSV
+## CSV Storage Format
 
 ### `users.csv`
 
@@ -76,13 +76,13 @@ id,nama,no_rekening,saldo,pin
 1,Andi Pratama,1001000001,15010000,1234
 ```
 
-| Kolom | Keterangan |
+| Column | Description |
 |---|---|
-| `id` | ID unik pengguna |
-| `nama` | Nama pemegang akun |
-| `no_rekening` | Nomor rekening |
-| `saldo` | Saldo akun dalam Rupiah |
-| `pin` | PIN pengguna |
+| `id` | Unique user ID |
+| `nama` | Account holder's name |
+| `no_rekening` | Account number |
+| `saldo` | Account balance in Indonesian Rupiah (IDR) |
+| `pin` | User PIN |
 
 ### `transactions.csv`
 
@@ -91,48 +91,45 @@ date,type,sender,receiver,amount
 2026-09-25 10:00:00,DEPOSIT,-,1001000001,100000.0
 ```
 
-| Kolom | Keterangan |
+| Column | Description |
 |---|---|
-| `date` | Waktu transaksi |
-| `type` | Jenis transaksi: `DEPOSIT`, `WITHDRAW`, atau `TRANSFER` |
-| `sender` | Nomor rekening pengirim |
-| `receiver` | Nomor rekening penerima |
-| `amount` | Jumlah transaksi dalam Rupiah |
+| `date` | Transaction timestamp |
+| `type` | Transaction type: `DEPOSIT`, `WITHDRAW`, or `TRANSFER` |
+| `sender` | Sender's account number |
+| `receiver` | Recipient's account number |
+| `amount` | Transaction amount in Indonesian Rupiah (IDR) |
 
 ---
 
-## Fitur
+## Features
 
-- **Login** — autentikasi pengguna menggunakan nomor rekening dan PIN.
-- **Cek Saldo** — menampilkan informasi akun dan saldo terkini.
-- **Deposit** — menambahkan saldo akun.
-- **Withdraw** — melakukan penarikan saldo.
-- **Transfer** — memindahkan saldo ke akun lain.
-- **Riwayat Transaksi** — melihat catatan transaksi masuk dan keluar.
+- **Login** — Authenticates users using their account number and PIN.
+- **Balance Inquiry** — Displays account information and the current balance.
+- **Deposit** — Adds funds to an account.
+- **Withdrawal** — Withdraws funds from an account.
+- **Transfer** — Transfers funds to another account.
+- **Transaction History** — Displays records of incoming and outgoing transactions.
 
 ---
 
-## Cara Menjalankan
+## How to Run
 
-Jalankan perintah berikut dari direktori proyek yang berisi folder `python_csv`:
+Run the following command from the project directory containing the `python_csv` folder:
 
 ```bash
 python3 -m python_csv.app.main
 ```
 
-Pastikan Python 3.x sudah terpasang.
+Make sure Python 3.x is installed.
 
 ---
 
-## Catatan Teknis
+## Technical Notes
 
-- File CSV digunakan sebagai media penyimpanan data tanpa database eksternal.
-- Perubahan saldo disimpan ke `users.csv`.
-- Transaksi yang berhasil dicatat ke `transactions.csv` beserta timestamp.
+- CSV files are used for data storage without an external database.
+- Balance changes are saved to `users.csv`.
+- Successful transactions are recorded in `transactions.csv` along with their timestamps.
 
 ---
 
-## Teknologi
-
-- Python 3
-- CSV File Handling
+** 功课👍🏻 ** 
